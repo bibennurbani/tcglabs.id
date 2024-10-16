@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen`}>
         <header className="flex justify-between items-center p-4 border-b border-gray-700">
           <div className="flex items-center">
             <Link href="/">
@@ -42,12 +42,13 @@ export default function RootLayout({
           </nav>
         </header>
 
-        <main className="min-h-screen flex justify-center items-center">
+        {/* Main content should take up remaining space */}
+        <main className="flex-grow flex justify-center items-center">
           {children}
         </main>
 
         <footer className="flex justify-between items-center p-4 border-t border-gray-700">
-          <div>
+          <div className="flex space-x-4">
             <Link href="/demo">Get a Demo</Link>
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Event Terms & Conditions</Link>
