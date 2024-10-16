@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 import { Mesh } from 'three';
 
 const RotatingTicket = () => {
-  const texture = useTexture('/ticket-background.png'); // Ensure the image path is correct
+  const texture = useTexture('/ticket-background.png'); // Ensure correct path
   const meshRef = useRef<Mesh>(null!);
   const [hovered, setHovered] = useState(false);
 
@@ -21,23 +21,22 @@ const RotatingTicket = () => {
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
+      scale={hovered ? 1.1 : 1} // Slight scale effect on hover
     >
-      <boxGeometry args={[3, 2, 0.1]} /> {/* Box representing the ticket */}
-      <meshBasicMaterial map={texture} /> {/* Use texture as the ticket background */}
+      <boxGeometry args={[4, 2.5, 0.2]} /> {/* Adjust ticket size */}
+      <meshBasicMaterial map={texture} />
     </mesh>
   );
 };
 
 const Ticket = () => {
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
-      <Canvas>
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <OrbitControls />
-        <RotatingTicket /> {/* Move the ticket component inside Canvas */}
-      </Canvas>
-    </div>
+    <Canvas>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <OrbitControls />
+      <RotatingTicket />
+    </Canvas>
   );
 };
 
