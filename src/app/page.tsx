@@ -1,6 +1,7 @@
 // File: app/page.tsx
 import { Metadata } from "next";
 import TicketComponent from "@/components/LanyardComponent";
+import { slow } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Biben Nurbani Hasan's Resume",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 async function getProfileData() {
+  await slow(1000);
   return {
     name: "Biben Nurbani Hasan",
     position: "Fullstack Developer",
@@ -41,8 +43,8 @@ export default async function Page() {
   const profileData = await getProfileData();
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-600">
+    <>
       <TicketComponent profileData={profileData} />
-    </main>
+    </>
   );
 }
