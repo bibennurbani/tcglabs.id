@@ -92,6 +92,7 @@ export default function LanyardComponent({
           </div>
           {/* Experience Section */}
           <div className="p-6">
+            <h1 className="font-bold">Current Employment</h1>
             <div className="flex items-center mb-4">
               <Avatar className="h-12 w-12 mr-4">
                 <Image
