@@ -3,6 +3,8 @@ import { Metadata } from 'next';
 import TicketComponent from '@/components/LanyardComponent';
 import { slow } from '@/lib/utils';
 import CardComponent from '@/components/CardComponent';
+import LanyardComponent from '@/components/LanyardComponent';
+import AnimatedComponent from '@/components/AnimatedComponent';
 
 export const metadata: Metadata = {
   title: "Biben Nurbani Hasan's Resume",
@@ -45,6 +47,8 @@ export default async function Page() {
   return (
     <>
       <CardComponent />
+      <LanyardComponent />
+      {/* <AnimatedComponent /> */}
       {/* <TicketComponent profileData={profileData} /> */}
     </>
   );
