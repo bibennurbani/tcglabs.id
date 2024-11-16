@@ -1,14 +1,9 @@
-"use client";
+'use client';
 
-import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
-import { Canvas, extend, useThree, useFrame } from "@react-three/fiber";
-import {
-  useGLTF,
-  useTexture,
-  Environment,
-  Lightformer,
-} from "@react-three/drei";
+import * as THREE from 'three';
+import { useEffect, useRef, useState } from 'react';
+import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
+import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
   BallCollider,
   CuboidCollider,
@@ -16,57 +11,52 @@ import {
   RigidBody,
   useRopeJoint,
   useSphericalJoint,
-} from "@react-three/rapier";
-import { MeshLineGeometry, MeshLineMaterial } from "meshline";
-import { useControls } from "leva";
+} from '@react-three/rapier';
+import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
+import { useControls } from 'leva';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload(
-  "https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb"
+  'https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb'
 );
 useTexture.preload(
-  "https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg"
+  'https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg'
 );
 
-export default function App() {
+export default function AnimatedComponent() {
   const { debug } = useControls({ debug: false });
   return (
     <Canvas camera={{ position: [0, 0, 13], fov: 25 }}>
       <ambientLight intensity={Math.PI} />
-      <Physics
-        debug={debug}
-        interpolate
-        gravity={[0, -40, 0]}
-        timeStep={1 / 60}
-      >
+      <Physics debug={debug} interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
         <Band />
       </Physics>
       <Environment background blur={0.75}>
-        <color attach="background" args={["black"]} />
+        <color attach='background' args={['black']} />
         <Lightformer
           intensity={2}
-          color="white"
+          color='white'
           position={[0, -1, 5]}
           rotation={[0, 0, Math.PI / 3]}
           scale={[100, 0.1, 1]}
         />
         <Lightformer
           intensity={3}
-          color="white"
+          color='white'
           position={[-1, -1, 1]}
           rotation={[0, 0, Math.PI / 3]}
           scale={[100, 0.1, 1]}
         />
         <Lightformer
           intensity={3}
-          color="white"
+          color='white'
           position={[1, 1, 1]}
           rotation={[0, 0, Math.PI / 3]}
           scale={[100, 0.1, 1]}
         />
         <Lightformer
           intensity={10}
-          color="white"
+          color='white'
           position={[-10, 0, 14]}
           rotation={[0, Math.PI / 2, Math.PI / 3]}
           scale={[100, 10, 1]}
@@ -80,17 +70,17 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef() // prettier-ignore
   const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3() // prettier-ignore
   const segmentProps = {
-    type: "dynamic",
+    type: 'dynamic',
     canSleep: true,
     colliders: false,
     angularDamping: 2,
     linearDamping: 2,
   };
   const { nodes, materials } = useGLTF(
-    "https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb"
+    'https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb'
   );
   const texture = useTexture(
-    "https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg"
+    'https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg'
   );
   const { width, height } = useThree((state) => state.size);
   const [curve] = useState(
@@ -112,8 +102,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 
   useEffect(() => {
     if (hovered) {
-      document.body.style.cursor = dragged ? "grabbing" : "grab";
-      return () => void (document.body.style.cursor = "auto");
+      document.body.style.cursor = dragged ? 'grabbing' : 'grab';
+      return () => void (document.body.style.cursor = 'auto');
     }
   }, [hovered, dragged]);
 
@@ -133,9 +123,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
       // Fix most of the jitter when over pulling the card
       [j1, j2].forEach((ref) => {
         if (!ref.current.lerped)
-          ref.current.lerped = new THREE.Vector3().copy(
-            ref.current.translation()
-          );
+          ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
         const clampedDistance = Math.max(
           0.1,
           Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
@@ -158,13 +146,13 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     }
   });
 
-  curve.curveType = "chordal";
+  curve.curveType = 'chordal';
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
   return (
     <>
       <group position={[0, 4, 0]}>
-        <RigidBody ref={fixed} {...segmentProps} type="fixed" />
+        <RigidBody ref={fixed} {...segmentProps} type='fixed' />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
@@ -178,8 +166,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
           position={[2, 0, 0]}
           ref={card}
           {...segmentProps}
-          type={dragged ? "kinematicPosition" : "dynamic"}
-        >
+          type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
@@ -196,8 +183,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
                   .copy(e.point)
                   .sub(vec.copy(card.current.translation()))
               )
-            )}
-          >
+            )}>
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base.map}
@@ -220,7 +206,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
       <mesh ref={band}>
         <meshLineGeometry />
         <meshLineMaterial
-          color="white"
+          color='white'
           depthTest={false}
           resolution={[width, height]}
           useMap
