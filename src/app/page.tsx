@@ -47,7 +47,7 @@ export default async function Page() {
     <>
       <CardComponent />
       <LanyardComponent />
-      <AnimatedComponent />
+      {/* <AnimatedComponent /> */}
       {/* <TicketComponent profileData={profileData} /> */}
     </>
   );
